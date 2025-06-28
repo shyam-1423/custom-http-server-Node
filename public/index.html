@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon"
+        href="https://cdn.iconscout.com/icon/free/png-256/free-node-js-logo-icon-download-in-svg-png-gif-file-formats--nodejs-programming-language-pack-logos-icons-1174925.png?f=webp">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Node Server</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <h1 class="nav-logo"><a href="/">Node Server</a></h1>
+            <ul class="nav-menu">
+                <li><a href="/" class="nav-link active">Home</a></li>
+                <li><a href="/about" class="nav-link">About</a></li>
+                <li><a href="/services" class="nav-link">Services</a></li>
+                <li><a href="/contact" class="nav-link">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Welcome to Custom HTTP Server</h1>
+                <p>Built with Node.js core modules - no external dependencies!</p>
+                <div class="hero-buttons">
+                    <button onclick="testAPI()" class="btn btn-primary"><a href="service.html#api-endpoints">Test
+                            API</a></button>
+                    <button onclick="getUsers()" class="btn btn-secondary"><a href="service.html#api-endpoints">Get
+                            Users</a></button>
+                </div>
+            </div>
+        </section>
+
+        <section class="features">
+            <div class="container">
+                <h2>Server Features</h2>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h3>🚀 Fast</h3>
+                        <p>Built with Node.js core HTTP module for optimal performance</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>📁 Static Files</h3>
+                        <p>Serves HTML, CSS, JavaScript, and other static assets</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>🔗 API Routes</h3>
+                        <p>RESTful API endpoints for dynamic data handling</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>🎯 Routing</h3>
+                        <p>Clean URL routing without external router libraries</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="api-demo">
+            <div class="container">
+                <h2>API Demo</h2>
+                <div class="api-response">
+                    <pre id="api-output">Click "Test API" or "Get Users" to see API responses...</pre>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Custom Node.js Server. Built with core modules only.</p>
+        </div>
+    </footer>
+
+    <script>
+        // API testing functions
+        async function testAPI() {
+            try {
+                const response = await fetch('/api/status');
+                const data = await response.json();
+                document.getElementById('api-output').textContent = JSON.stringify(data, null, 2);
+            } catch (error) {
+                document.getElementById('api-output').textContent = 'Error: ' + error.message;
+            }
+        }
+
+        async function getUsers() {
+            try {
+                const response = await fetch('/api/users');
+                const data = await response.json();
+                document.getElementById('api-output').textContent = JSON.stringify(data, null, 2);
+            } catch (error) {
+                document.getElementById('api-output').textContent = 'Error: ' + error.message;
+            }
+        }
+
+        // Simple client-side routing for active nav links
+        document.addEventListener('DOMContentLoaded', function () {
+            const currentPath = window.location.pathname;
+            const navLinks = document.querySelectorAll('.nav-link');
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === currentPath ||
+                    (currentPath === '/' && link.getAttribute('href') === '/')) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

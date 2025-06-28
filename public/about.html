@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon"
+        href="https://cdn.iconscout.com/icon/free/png-256/free-node-js-logo-icon-download-in-svg-png-gif-file-formats--nodejs-programming-language-pack-logos-icons-1174925.png?f=webp">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About | Node.js Server</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <h1 class="nav-logo"><a href="/">Node Server</a></h1>
+            <ul class="nav-menu">
+                <li><a href="/" class="nav-link">Home</a></li>
+                <li><a href="/about" class="nav-link active">About</a></li>
+                <li><a href="/services" class="nav-link">Services</a></li>
+                <li><a href="/contact" class="nav-link">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <section class="page-header">
+            <div class="container">
+                <h1>About Our Server</h1>
+                <p>Learn about this custom HTTP server implementation</p>
+            </div>
+        </section>
+
+        <section class="about-content">
+            <div class="container">
+                <div class="about-grid">
+                    <div class="about-text">
+                        <h2>Pure Node.js Implementation</h2>
+                        <p>This server is built using only Node.js core modules, demonstrating the power and flexibility
+                            of the built-in HTTP module. No external frameworks or dependencies are required.</p>
+
+                        <h3>Core Modules Used:</h3>
+                        <ul>
+                            <li><strong>http</strong> - Main server functionality</li>
+                            <li><strong>fs</strong> - File system operations</li>
+                            <li><strong>path</strong> - File path utilities</li>
+                            <li><strong>url</strong> - URL parsing</li>
+                        </ul>
+
+                        <h3>Key Features:</h3>
+                        <ul>
+                            <li>Custom routing system</li>
+                            <li>Static file serving</li>
+                            <li>MIME type detection</li>
+                            <li>RESTful API endpoints</li>
+                            <li>Error handling</li>
+                            <li>Graceful shutdown</li>
+                        </ul>
+                    </div>
+
+                    <div class="server-stats">
+                        <h3>Server Information</h3>
+                        <div class="stat-card">
+                            <div class="stat-label">Node.js Version:</div>
+                            <div class="stat-value" id="node-version">Loading...</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-label">Server Status:</div>
+                            <div class="stat-value" id="server-status">Loading...</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-label">Uptime:</div>
+                            <div class="stat-value" id="uptime">Loading...</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-label">Last Updated:</div>
+                            <div class="stat-value" id="last-updated">Loading...</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="tech-details">
+            <div class="container">
+                <h2>Technical Details</h2>
+                <div class="tech-grid">
+                    <div class="tech-card">
+                        <h4>Routing</h4>
+                        <p>Custom URL routing using the built-in url module to parse requests and serve appropriate
+                            responses.</p>
+                    </div>
+                    <div class="tech-card">
+                        <h4>File Serving</h4>
+                        <p>Efficient static file serving with proper MIME type detection and caching headers.</p>
+                    </div>
+                    <div class="tech-card">
+                        <h4>API Endpoints</h4>
+                        <p>RESTful API implementation with JSON responses for dynamic data operations.</p>
+                    </div>
+                    <div class="tech-card">
+                        <h4>Error Handling</h4>
+                        <p>Comprehensive error handling for 404s, server errors, and graceful shutdown procedures.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Custom Node.js Server. Built with core modules only.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Load server information
+        async function loadServerInfo() {
+            try {
+                const response = await fetch('/api/status');
+                const data = await response.json();
+
+                document.getElementById('server-status').textContent = data.status.toUpperCase();
+                document.getElementById('last-updated').textContent = new Date(data.timestamp).toLocaleString();
+                document.getElementById('node-version').textContent = 'v' + process.version || 'Unknown';
+            } catch (error) {
+                document.getElementById('server-status').textContent = 'Error loading';
+                document.getElementById('last-updated').textContent = 'N/A';
+            }
+        }
+
+        // Update uptime display
+        function updateUptime() {
+            const startTime = Date.now();
+            setInterval(() => {
+                const uptime = Date.now() - startTime;
+                const seconds = Math.floor(uptime / 1000);
+                const minutes = Math.floor(seconds / 60);
+                const hours = Math.floor(minutes / 60);
+
+                const uptimeString = `${hours}h ${minutes % 60}m ${seconds % 60}s`;
+                document.getElementById('uptime').textContent = uptimeString;
+            }, 1000);
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            loadServerInfo();
+            updateUptime();
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon"
+        href="https://cdn.iconscout.com/icon/free/png-256/free-node-js-logo-icon-download-in-svg-png-gif-file-formats--nodejs-programming-language-pack-logos-icons-1174925.png?f=webp">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services | Node.js Server</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <h1 class="nav-logo"><a href="/">Node Server</a></h1>
+            <ul class="nav-menu">
+                <li><a href="/" class="nav-link">Home</a></li>
+                <li><a href="/about" class="nav-link">About</a></li>
+                <li><a href="/services" class="nav-link active">Services</a></li>
+                <li><a href="/contact" class="nav-link">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <section class="page-header">
+            <div class="container">
+                <h1>Our Services</h1>
+                <p>Explore what our custom HTTP server can do</p>
+            </div>
+        </section>
+
+        <section class="services-grid">
+            <div class="container">
+                <div class="service-cards">
+                    <div class="service-card">
+                        <div class="service-icon">🌐</div>
+                        <h3>Web Hosting</h3>
+                        <p>Reliable static file serving with support for HTML, CSS, JavaScript, and multimedia files.
+                        </p>
+                        <ul class="service-features">
+                            <li>Fast file delivery</li>
+                            <li>MIME type detection</li>
+                            <li>Proper HTTP headers</li>
+                            <li>Error handling</li>
+                        </ul>
+                    </div>
+
+                    <div class="service-card">
+                        <div class="service-icon">🔌</div>
+                        <h3>REST API</h3>
+                        <p>RESTful API endpoints for data operations and backend services.</p>
+                        <ul class="service-features">
+                            <li>JSON responses</li>
+                            <li>Status endpoints</li>
+                            <li>User management</li>
+                            <li>Custom routes</li>
+                        </ul>
+                    </div>
+
+                    <div class="service-card">
+                        <div class="service-icon">🛣️</div>
+                        <h3>URL Routing</h3>
+                        <p>Clean URL routing system without external dependencies.</p>
+                        <ul class="service-features">
+                            <li>Custom route handling</li>
+                            <li>Parameter parsing</li>
+                            <li>404 error pages</li>
+                            <li>Fallback routing</li>
+                        </ul>
+                    </div>
+
+                    <div class="service-card">
+                        <div class="service-icon">📊</div>
+                        <h3>Server Monitoring</h3>
+                        <p>Built-in server monitoring and status reporting capabilities.</p>
+                        <ul class="service-features">
+                            <li>Real-time status</li>
+                            <li>Error logging</li>
+                            <li>Performance metrics</li>
+                            <li>Health checks</li>
+                        </ul>
+                    </div>
+
+                    <div class="service-card">
+                        <div class="service-icon">🔒</div>
+                        <h3>Security Features</h3>
+                        <p>Basic security implementations for safe server operations.</p>
+                        <ul class="service-features">
+                            <li>Input validation</li>
+                            <li>Path traversal protection</li>
+                            <li>Graceful error handling</li>
+                            <li>Request filtering</li>
+                        </ul>
+                    </div>
+
+                    <div class="service-card">
+                        <div class="service-icon">⚡</div>
+                        <h3>Performance</h3>
+                        <p>Optimized for speed and efficiency using core Node.js modules.</p>
+                        <ul class="service-features">
+                            <li>Minimal overhead</li>
+                            <li>Efficient file handling</li>
+                            <li>Memory optimization</li>
+                            <li>Fast response times</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="api-endpoints" id="">
+            <div class="container">
+                <h2>Available API Endpoints</h2>
+                <div class="endpoint-list">
+                    <div class="endpoint-item">
+                        <div class="endpoint-method get">GET</div>
+                        <div class="endpoint-path">/api/status</div>
+                        <div class="endpoint-desc">Get server status and health information</div>
+                        <button onclick="testEndpoint('/api/status')" class="btn btn-small">Test</button>
+                    </div>
+
+                    <div class="endpoint-item">
+                        <div class="endpoint-method get">GET</div>
+                        <div class="endpoint-path">/api/users</div>
+                        <div class="endpoint-desc">Retrieve list of users (demo data)</div>
+                        <button onclick="testEndpoint('/api/users')" class="btn btn-small">Test</button>
+                    </div>
+                </div>
+
+                <div class="api-response-container">
+                    <h3>API Response:</h3>
+                    <pre id="endpoint-response">Select an endpoint above to test...</pre>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Custom Node.js Server. Built with core modules only.</p>
+        </div>
+    </footer>
+
+    <script>
+        async function testEndpoint(endpoint) {
+            const responseElement = document.getElementById('endpoint-response');
+            responseElement.textContent = 'Loading...';
+
+            try {
+                const response = await fetch(endpoint);
+                const data = await response.json();
+                responseElement.textContent = JSON.stringify(data, null, 2);
+            } catch (error) {
+                responseElement.textContent = `Error: ${error.message}`;
+            }
+        }
+
+        // Add loading animation for service cards
+        document.addEventListener('DOMContentLoaded', function () {
+            const serviceCards = document.querySelectorAll('.service-card');
+            serviceCards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateY(20px)';
+                    card.style.transition = 'all 0.5s ease';
+
+                    setTimeout(() => {
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    }, 100);
+                }, index * 100);
+            });
+        });
+    </script>
+</body>
+
+</html>
